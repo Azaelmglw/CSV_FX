@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="root_vbox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../assets/SOConsole.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox fx:id="top_section_hbox" prefHeight="50.0" prefWidth="600.0" styleClass="background_2" VBox.vgrow="NEVER">
+         <children>
+            <VBox fx:id="top_left_section_vbox" prefHeight="200.0" prefWidth="300.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <MenuButton fx:id="main_menu_menbtn" mnemonicParsing="false" styleClass="description_label" text="Actions">
+                     <items>
+                        <MenuItem fx:id="new_menitm" mnemonicParsing="false" onAction="#NewElement" text="New" />
+                        <MenuItem fx:id="add_value_menitm" mnemonicParsing="false" onAction="#AddValue" text="Add Value" />
+                        <MenuItem fx:id="save_menitm" mnemonicParsing="false" onAction="#SaveFile" text="Save" />
+                     </items>
+                  </MenuButton>
+               </children>
+            </VBox>
+            <VBox fx:id="top_right_section_vbox" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="300.0" HBox.hgrow="ALWAYS" />
+         </children></HBox>
+      <HBox fx:id="working_area_hbox" alignment="CENTER_LEFT" prefHeight="300.0" prefWidth="600.0" styleClass="background_4" VBox.vgrow="ALWAYS">
+         <children>
+            <VBox fx:id="middle_left_section_vbox" alignment="CENTER_LEFT" prefHeight="300.0" prefWidth="400.0" HBox.hgrow="NEVER">
+               <children>
+                  <HBox fx:id="first_field_hbox" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" VBox.vgrow="NEVER">
+                     <children>
+                        <Label fx:id="name_lbl" prefWidth="125.0" styleClass="description_label" text="Name/s" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets left="15.0" right="5.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="name_tfield" alignment="CENTER" styleClass="input_field" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets right="15.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="second_field_hbox" alignment="CENTER_LEFT" layoutX="10.0" layoutY="135.0" prefHeight="50.0" prefWidth="200.0" VBox.vgrow="NEVER">
+                     <children>
+                        <Label fx:id="email_lbl" prefWidth="125.0" styleClass="description_label" text="Email:" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets left="15.0" right="5.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="email_tfield" alignment="CENTER" styleClass="input_field" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets right="15.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox fx:id="middle_right_section_vbox" alignment="BOTTOM_CENTER" prefHeight="300.0" prefWidth="200.0" styleClass="vbox_1" HBox.hgrow="ALWAYS">
+               <children>
+                  <VBox fx:id="display_header_lbl" alignment="CENTER" prefHeight="50.0" prefWidth="194.0" VBox.vgrow="NEVER">
+                     <children>
+                        <Label fx:id="current_document_lbl" styleClass="description_label" text="Current Document" />
+                     </children>
+                  </VBox>
+                  <TextArea fx:id="change_display_txtarea" editable="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="250.0" prefWidth="200.0" styleClass="icon_label" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+         </children></HBox>
+      <HBox fx:id="bottom_section_hbox" prefHeight="50.0" prefWidth="600.0" styleClass="background" VBox.vgrow="NEVER">
+         <children>
+            <VBox fx:id="bottom_left_section_vbox" alignment="CENTER" prefHeight="50.0" prefWidth="300.0" HBox.hgrow="ALWAYS" />
+            <VBox fx:id="bottom_right_section_vbox" alignment="CENTER" prefHeight="50.0" prefWidth="300.0" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+   </children>
+</VBox>
