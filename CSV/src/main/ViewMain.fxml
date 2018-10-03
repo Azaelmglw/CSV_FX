@@ -14,8 +14,7 @@
                <children>
                   <MenuButton fx:id="main_menu_menbtn" mnemonicParsing="false" styleClass="description_label" text="Actions">
                      <items>
-                        <MenuItem fx:id="new_menitm" mnemonicParsing="false" onAction="#NewElement" text="New" />
-                        <MenuItem fx:id="add_value_menitm" mnemonicParsing="false" onAction="#AddValue" text="Add Value" />
+                        <MenuItem fx:id="open_menitm" mnemonicParsing="false" onAction="#OpenFile" text="Open" />
                         <MenuItem fx:id="save_menitm" mnemonicParsing="false" onAction="#SaveFile" text="Save" />
                      </items>
                   </MenuButton>
@@ -25,7 +24,7 @@
          </children></HBox>
       <HBox fx:id="working_area_hbox" alignment="CENTER_LEFT" prefHeight="300.0" prefWidth="600.0" styleClass="background_4" VBox.vgrow="ALWAYS">
          <children>
-            <VBox fx:id="middle_left_section_vbox" alignment="CENTER_LEFT" prefHeight="300.0" prefWidth="400.0" HBox.hgrow="NEVER">
+            <VBox fx:id="middle_left_section_vbox" alignment="CENTER_LEFT" prefHeight="300.0" prefWidth="400.0" HBox.hgrow="ALWAYS">
                <children>
                   <HBox fx:id="first_field_hbox" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" VBox.vgrow="NEVER">
                      <children>
@@ -57,22 +56,72 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox fx:id="middle_right_section_vbox" alignment="BOTTOM_CENTER" prefHeight="300.0" prefWidth="200.0" styleClass="vbox_1" HBox.hgrow="ALWAYS">
+            <VBox fx:id="middle_right_section_vbox" alignment="TOP_CENTER" prefHeight="300.0" prefWidth="300.0" styleClass="background_3" HBox.hgrow="ALWAYS">
                <children>
-                  <VBox fx:id="display_header_lbl" alignment="CENTER" prefHeight="50.0" prefWidth="194.0" VBox.vgrow="NEVER">
+                  <HBox fx:id="controls_header_hbox" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Label fx:id="current_document_lbl" styleClass="description_label" text="Current Document" />
+                        <Label fx:id="controls_lbl" styleClass="description_label" text="Controls" />
                      </children>
-                  </VBox>
-                  <TextArea fx:id="change_display_txtarea" editable="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="250.0" prefWidth="200.0" styleClass="icon_label" VBox.vgrow="ALWAYS" />
+                  </HBox>
+                  <HBox fx:id="first_row_operands_hbox" alignment="CENTER" prefHeight="75.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Button fx:id="add_btn" mnemonicParsing="false" onAction="#AddValue" prefHeight="50.0" prefWidth="100.0" styleClass="quick_menu_button" text="Add" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="Cantarell Bold" size="55.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="5.0" right="15.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="clear_btn" mnemonicParsing="false" onAction="#ClearInputFields" prefHeight="50.0" prefWidth="100.0" styleClass="quick_menu_button" text="Clear" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="Cantarell Bold" size="55.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="15.0" right="5.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="second_row_operands_hbox" alignment="CENTER" prefHeight="75.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Button fx:id="first_btn" mnemonicParsing="false" onAction="#FirstValue" prefHeight="50.0" prefWidth="100.0" styleClass="quick_menu_button" text="|&lt;-">
+                           <font>
+                              <Font name="Cantarell Bold" size="55.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="previous_btn" mnemonicParsing="false" onAction="#PreviousValue" prefHeight="50.0" prefWidth="100.0" styleClass="quick_menu_button" text="&lt;-" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="Cantarell Bold" size="55.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="next_btn" mnemonicParsing="false" onAction="#NextValue" prefHeight="50.0" prefWidth="100.0" styleClass="quick_menu_button" text="-&gt;" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="Cantarell Bold" size="55.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="last_btn" layoutX="110.0" layoutY="31.0" mnemonicParsing="false" onAction="#LastValue" prefHeight="50.0" prefWidth="100.0" styleClass="quick_menu_button" text="-&gt;|">
+                           <font>
+                              <Font name="Cantarell Bold" size="55.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </children></HBox>
-      <HBox fx:id="bottom_section_hbox" prefHeight="50.0" prefWidth="600.0" styleClass="background" VBox.vgrow="NEVER">
-         <children>
-            <VBox fx:id="bottom_left_section_vbox" alignment="CENTER" prefHeight="50.0" prefWidth="300.0" HBox.hgrow="ALWAYS" />
-            <VBox fx:id="bottom_right_section_vbox" alignment="CENTER" prefHeight="50.0" prefWidth="300.0" HBox.hgrow="ALWAYS" />
-         </children>
-      </HBox>
+      <HBox fx:id="bottom_section_hbox" prefHeight="50.0" prefWidth="600.0" styleClass="background" VBox.vgrow="NEVER" />
    </children>
 </VBox>

@@ -1,12 +1,16 @@
 package models;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextFormatter;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -30,7 +34,7 @@ public class ModelMain {
     */
     
     /*  Alerts array list position:
-    [0] -> error_alert  |
+    [0] -> confirmation_alert  |    [1] -> error_alert  |
     */
     
     /*  User input array list position:
@@ -47,13 +51,18 @@ public class ModelMain {
     private List<TextFormatter> text_formatters = new ArrayList<>(5);
     private List<Alert> alerts = new ArrayList<>(5);
     private List<String> user_input = new ArrayList<>(5);
-    private List<String> app_output = new ArrayList<>(5);
+    private List<String> app_output = new ArrayList<>();
+    private List<String> user_names = new ArrayList<>();
+    private List<String> user_emails = new ArrayList<>();
     
+    private Optional <ButtonType> result;
+    
+    private String field_assigner = "";
     private String result_document_aux = "";
+    private int cursor = 0;
     private File csv_file;
+    private FileReader file_reader;
     private FileWriter file_writer;
-    
-    
     
     public ModelMain(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -61,21 +70,54 @@ public class ModelMain {
     
     public void AddElement(){
         if(getName().isEmpty() || getEmail().isEmpty()){
-            getAlert(0).setHeaderText("No value to be added.");
-            getAlert(0).showAndWait();
+            getAlert(1).setHeaderText("No value to be added.");
+            getAlert(1).showAndWait();
         }
         else if(!getEmail().contains("@")){
-            getAlert(0).setHeaderText("Incorrect email.");
-            getAlert(0).showAndWait();
+            getAlert(1).setHeaderText("Incorrect email.");
+            getAlert(1).showAndWait();
         }
         else{
             result_document_aux += (getName() + "," + getEmail() + "\n");
-            System.out.println(result_document_aux);
             setResultDocument(result_document_aux);
+            user_names.add(getName());
+            user_emails.add(getEmail());
         }
     }
     
-    public void SaveFile(){      
+    
+    public void ReadFile(){
+        try{
+            getFileChooser(0).setTitle("Select resource file");
+            csv_file = getFileChooser(0).showOpenDialog(getPrimaryStage());
+            file_reader = new FileReader(csv_file);
+            user_names.clear();
+            user_emails.clear();
+            int character = 0;
+            while ((character = file_reader.read()) != -1) {
+                field_assigner += (char)character;
+                result_document_aux += (char)character;
+                if((char)character == ','){
+                    user_names.add(field_assigner.replaceAll("," , ""));
+                    field_assigner = "";
+                }
+                else if((char)character == '\n'){
+                    user_emails.add(field_assigner);
+                    field_assigner = "";
+                }
+            }
+            setResultDocument(result_document_aux);
+            file_reader.close();
+        }
+        catch(FileNotFoundException e){
+            getAlert(1).setContentText("Err 000: File not Found:" + e);
+        }
+        catch(IOException e){
+            getAlert(1).setContentText("Err 001: The file couldn't be read: " + e);
+        }
+    }
+    
+    public void WriteFile(){      
         try{
             getFileChooser(0).setTitle("Choose a path to save the file.");
             csv_file = getFileChooser(0).showSaveDialog(getPrimaryStage());
@@ -86,6 +128,14 @@ public class ModelMain {
         catch(IOException e){
             getAlert(0).setHeaderText("" + e);
         }
+    }
+    
+    public void SaveCurrentChangesConfirmationRequest(){
+        getAlert(0).setTitle("Confirmation Required");
+        getAlert(0).setHeaderText("Save changes of the current file?");
+        getAlert(0).setContentText("Choose one of the following options.");
+        
+        result = getAlert(0).showAndWait();
     }
     
     public Stage getPrimaryStage() {
@@ -146,5 +196,29 @@ public class ModelMain {
     
     public void setResultDocument(String result_document){
         this.app_output.add(0, result_document);
+    }
+    
+    public List getUserNames(){
+        return user_names;
+    }
+    
+    public List getUserEmails(){
+        return user_emails;
+    }
+    
+    public String getDocumentAux(){
+        return result_document_aux;
+    }
+    
+    public int getCursor(){
+        return cursor;
+    }
+    
+    public void setCursorPosition(int position){
+        this.cursor = position;
+    }
+    
+    public Optional getResult(){
+        return result;
     }
 }

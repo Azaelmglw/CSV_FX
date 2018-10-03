@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.TextFormatter.Change;
 import javafx.stage.FileChooser;
@@ -102,15 +103,18 @@ public class Main extends Application{
             model_main.setTextFormatter(0, name_formatter);
             
             //  Alerts Declaration.
+            Alert confirmation_alert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmation_alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
             Alert error_alert = new Alert(Alert.AlertType.ERROR);
             error_alert.setTitle("Something went wrong");
             
             //  Alerts Assignation.
-            model_main.setAlert(0, error_alert);
+            model_main.setAlert(0, confirmation_alert);
+            model_main.setAlert(1, error_alert);
             
             /*  Only the <<main>> UI is set in this method, all of the other manipulations of <<primaryStage>>
             need to be declared in it's respective Controllers.*/
-            primaryStage.setTitle("CSV v0.1");
+            primaryStage.setTitle("CSV v0.2");
             primaryStage.setScene(main_scene);
             primaryStage.show();
         } 
